@@ -259,6 +259,7 @@ class ProbabilisticVotingClassifier(ClassifierMixin, _BaseVoting):
             # pass in k x c probas (scaled by x10?) into marginstableorcreateseed
             probas_reshape = probas.transpose((1, 0, 2)).reshape(-1, c*k)   # n x (c*k)
             # _st = time.perf_counter()
+            # np.random.seed(0) # for consistent results
             mev0_orders = np.apply_along_axis(
                 lambda x: sim2(
                     marginstableorcreateseed=10.*x.reshape(c, k),   # scale scores for stability?
@@ -268,6 +269,7 @@ class ProbabilisticVotingClassifier(ClassifierMixin, _BaseVoting):
                     # control accuracy vs time trade-off (TODO pass in parameters)
                     # Niters=20, 
                     # Nparticles=20,
+                    seed=np.random.randint(2**31),
                     **self.mev0_kwargs,
                 )[0],
                 axis=1,

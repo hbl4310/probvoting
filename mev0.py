@@ -400,7 +400,7 @@ def sim2(
         chosenone = int(np.random.rand() * avlength) + startav 
         outorderprobs = np.array([np.zeros(startav - 1, 1), np.tile(1 / avlength, [Niters - startav, 1])])
     
-    chosenparticle = int(np.ceil(np.random.rand() * Nparticles))
+    chosenparticle = int(np.floor(np.random.rand() * Nparticles))
     outorder = outorderlist.astype(int)[:, chosenparticle, chosenone]
     outorderpos = np.copy(outorder)
     outorderpos[outorder] = np.arange(Nc, dtype=int)
